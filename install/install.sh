@@ -17,6 +17,13 @@ fi
 
 export DEBIAN_FRONTEND=noninteractive
 
+echo "               _                                                                                              _   "
+echo " __      _____| |__  ___  ___ _ ____   _____ _ __ _ __ ___   __ _ _ __   __ _  __ _  ___ _ __ ___   ___ _ __ | |_ "
+echo " \ \ /\ / / _ \ '_ \/ __|/ _ \ '__\ \ / / _ \ '__| '_ \` _ \ / _\` | '_ \ / _\` |/ _\` |/ _ \ '_ \` _ \ / _ \ '_ \| __|"
+echo "  \ V  V /  __/ |_) \__ \  __/ |   \ V /  __/ |_ | | | | | | (_| | | | | (_| | (_| |  __/ | | | | |  __/ | | | |_ "
+echo "   \_/\_/ \___|_.__/|___/\___|_|    \_/ \___|_(_)|_| |_| |_|\__,_|_| |_|\__,_|\__, |\___|_| |_| |_|\___|_| |_|\__|"
+echo "                                                                              |___/                               "
+
 apt update
 
 # Install requirements
@@ -49,12 +56,14 @@ sed -i 's/group = www-data/group = management/' /etc/php/7.4/fpm/pool.d/www.conf
 service php7.4-fpm reload
 
 # Add the management app
+cd /home/management/
 sudo -H -u management mkdir /home/management/sites
 sudo -H -u management mkdir /home/management/sites/management
 sudo -H -u management git clone https://github.com/webserver-management/app.git /home/management/sites/management
 sudo -H -u management cp /home/management/sites/management/.env.example /home/management/sites/management/.env
 sudo -H -u management composer install --working-dir=/home/management/sites/management
 php /home/management/sites/management/artisan key:generate
+cd ~
 
 # Configure Nginx
 rm /etc/nginx/sites-enabled/default /etc/nginx/sites-available/default
@@ -64,6 +73,16 @@ service nginx reload
 
 # Success output
 IP=$(hostname -I | cut -d' ' -f1)
-echo "------------------"
-echo "webserver.management is succesfully installed!"
-echo "Visit in your browser: http://${IP}"
+clear
+echo "                                  _ "
+echo "  ___ _   _  ___ ___ ___  ___ ___| |"
+echo " / __| | | |/ __/ __/ _ \/ __/ __| |"
+echo " \__ \ |_| | (_| (_|  __/\__ \__ \_|"
+echo " |___/\__,_|\___\___\___||___/___(_)"
+echo ""
+echo "------------------------------------------------"
+echo "|"
+echo "| webserver.management is succesfully installed!"
+echo "| Visit in your browser: http://${IP}"
+echo "|"
+echo "------------------------------------------------"
