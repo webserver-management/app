@@ -62,7 +62,9 @@ sudo -H -u management mkdir /home/management/sites/management
 sudo -H -u management git clone https://github.com/webserver-management/app.git /home/management/sites/management
 sudo -H -u management cp /home/management/sites/management/.env.example /home/management/sites/management/.env
 sudo -H -u management composer install --working-dir=/home/management/sites/management
+sudo -H -u management touch /home/management/sites/management/database/database.sqlite
 php /home/management/sites/management/artisan key:generate
+php /home/management/sites/management/artisan migrate
 cd ~
 
 # Configure Nginx
