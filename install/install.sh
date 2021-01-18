@@ -75,6 +75,7 @@ service nginx reload
 
 # Success output
 IP=$(hostname -I | cut -d' ' -f1)
+PASSWORD=$(php /home/management/sites/management/artisan user:create)
 clear
 echo "                                  _ "
 echo "  ___ _   _  ___ ___ ___  ___ ___| |"
@@ -82,9 +83,12 @@ echo " / __| | | |/ __/ __/ _ \/ __/ __| |"
 echo " \__ \ |_| | (_| (_|  __/\__ \__ \_|"
 echo " |___/\__,_|\___\___\___||___/___(_)"
 echo ""
-echo "------------------------------------------------"
+echo "---------------------------------------------------------------------"
 echo "|"
 echo "| webserver.management is succesfully installed!"
-echo "| Visit in your browser: http://${IP}"
+echo "| Visit in your browser: http://${IP} and login with:"
+echo "| "
+echo "| Email: login@webserver.management"
+echo "| Password: ${PASSWORD}"
 echo "|"
-echo "------------------------------------------------"
+echo "---------------------------------------------------------------------"
